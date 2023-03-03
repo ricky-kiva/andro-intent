@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntentApp"
         tools:targetApi="31">
-        <!--new activity automatically added to AndroidManifest when created-->
+        <activity
+            android:name=".MoveWData"
+            android:exported="false" />
+        <!-- new activity automatically added to AndroidManifest when created -->
         <activity
             android:name=".MoveActivity"
             android:exported="false" />
@@ -19,10 +22,11 @@
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <!--this states 'MainActivity' is the 'entry point' of the app-->
+
+                <!-- this states 'MainActivity' is the 'entry point' of the app -->
                 <action android:name="android.intent.action.MAIN" />
 
-                <!--this states 'MainActivity' will be available at 'home screen' as a 'launcher'-->
+                <!-- this states 'MainActivity' will be available at 'home screen' as a 'launcher' -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
