@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 
-class MoveWData : AppCompatActivity() {
+class MoveWDataActivity : AppCompatActivity() {
 
+    // 'companion object' is an 'object associated' to 'this class'
+    // often used to define 'properties/object' that 'doesn't require an instance' of class to be 'created'
+    // So it 'could be called directly' by class name
+    // ex: 'MoveWData.EXTRA_NAME' will return '"extra_name"'
     companion object {
         const val EXTRA_NAME = "extra_name"
         const val EXTRA_UNIV = "extra_univ"
