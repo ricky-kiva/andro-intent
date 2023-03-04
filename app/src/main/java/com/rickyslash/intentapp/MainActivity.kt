@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 
 /* INTENT THEORY */
 
@@ -21,6 +24,24 @@ import android.widget.Button
 // - Implicit Intent: An intent that doesn't need details of class name, to use a function from another app, like using Camera app / get image from Gallery app
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var tvResult: TextView
+
+    // 'Registering' 'Activity Result Launcher' for 'MoveForResult' Activity
+    // 'ActivityResultContracts' as 'parameter' will 'do contract' to get 'result' from 'target activity'
+    // you could also 'do another contracts' to 'get another value', like maybe 'photo'
+    private val resultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        result ->
+        // 'checking' if the 'result code is the same' & if 'data is not null'
+        if (result.resultCode == MoveForResultActivity.RESULT_CODE && result.data != null) {
+            // 'get' the 'result' string from 'MoveForResult' Activity
+            val selectedValue = result.data?.getStringExtra(MoveForResultActivity.EXTRA_SELECTED_VAL)
+            tvResult.text = "Pink Floyd: $selectedValue"
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,12 +51,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btnMoveWData: Button = findViewById(R.id.btn_move_w_data)
         val btnMoveWObj: Button = findViewById(R.id.btn_move_w_object)
         val btnDialActivity: Button = findViewById(R.id.btn_dial)
+        val btnMoveForResult: Button = findViewById(R.id.btn_move_for_result)
+
+        // assign value to TextView 'result'
+        tvResult = findViewById(R.id.tv_result)
 
         // add listener for buttons
         btnMoveActivity.setOnClickListener(this)
         btnMoveWData.setOnClickListener(this)
         btnMoveWObj.setOnClickListener(this)
         btnDialActivity.setOnClickListener(this)
+        btnMoveForResult.setOnClickListener(this)
 
     }
 
@@ -84,6 +110,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
                 startActivity(dialIntent)
+            }
+
+            R.id.btn_move_for_result -> {
+                val moveForResultIntent = Intent(this@MainActivity, MoveForResultActivity::class.java)
+                // '.launch' will launch the launcher to get result
+                resultLauncher.launch(moveForResultIntent)
             }
         }
     }
