@@ -27,10 +27,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // add button to move to 'Move Activity'
         val btnMoveActivity: Button = findViewById(R.id.btn_move_activity)
         val btnMoveWData: Button = findViewById(R.id.btn_move_w_data)
+        val btnMoveWObj: Button = findViewById(R.id.btn_move_w_object)
 
         // add listener for buttons
         btnMoveActivity.setOnClickListener(this)
         btnMoveWData.setOnClickListener(this)
+        btnMoveWObj.setOnClickListener(this)
 
     }
 
@@ -49,14 +51,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_move_w_data -> {
-                val moveWDataIntent = Intent(this@MainActivity, MoveWData::class.java)
+                val moveWDataActivityIntent = Intent(this@MainActivity, MoveWDataActivity::class.java)
 
                 // 'putExtra' will 'send' data along with 'Intent object' to 'targeted activity'
                 // 'putExtra' carry a 'key-value' format data
-                moveWDataIntent.putExtra(MoveWData.EXTRA_NAME, "Rickyslash")
-                moveWDataIntent.putExtra(MoveWData.EXTRA_UNIV, "Universitas Gadjah Mada")
+                moveWDataActivityIntent.putExtra(MoveWDataActivity.EXTRA_NAME, "Rickyslash")
+                moveWDataActivityIntent.putExtra(MoveWDataActivity.EXTRA_UNIV, "Universitas Gadjah Mada")
 
-                startActivity(moveWDataIntent)
+                startActivity(moveWDataActivityIntent)
+            }
+
+            R.id.btn_move_w_object -> {
+                val moveWObjActivityIntent = Intent(this@MainActivity, MoveWObjActivity::class.java)
+
+                // making new Rocker 'object' to be parsed by Parcelable
+                val rocker = Rocker("Rickyslash", "Pink Floyd", 1973, "The Dark Side of the Moon")
+
+                moveWObjActivityIntent.putExtra(MoveWObjActivity.EXTRA_ROCKER, rocker)
+
+                startActivity(moveWObjActivityIntent)
             }
         }
     }

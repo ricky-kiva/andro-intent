@@ -12,9 +12,11 @@
         android:theme="@style/Theme.IntentApp"
         tools:targetApi="31">
         <activity
-            android:name=".MoveWData"
+            android:name=".MoveWObjActivity"
             android:exported="false" />
-        <!-- new activity automatically added to AndroidManifest when created -->
+        <activity
+            android:name=".MoveWDataActivity"
+            android:exported="false" /> <!-- new activity automatically added to AndroidManifest when created -->
         <activity
             android:name=".MoveActivity"
             android:exported="false" />
