@@ -1,6 +1,7 @@
 package com.rickyslash.intentapp
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -28,11 +29,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btnMoveActivity: Button = findViewById(R.id.btn_move_activity)
         val btnMoveWData: Button = findViewById(R.id.btn_move_w_data)
         val btnMoveWObj: Button = findViewById(R.id.btn_move_w_object)
+        val btnDialActivity: Button = findViewById(R.id.btn_dial)
 
         // add listener for buttons
         btnMoveActivity.setOnClickListener(this)
         btnMoveWData.setOnClickListener(this)
         btnMoveWObj.setOnClickListener(this)
+        btnDialActivity.setOnClickListener(this)
 
     }
 
@@ -70,6 +73,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 moveWObjActivityIntent.putExtra(MoveWObjActivity.EXTRA_ROCKER, rocker)
 
                 startActivity(moveWObjActivityIntent)
+            }
+
+            R.id.btn_dial -> {
+                val phoneNumber = "+62-274-580882"
+                // 'Implicit Intent' need 'Action' & 'Uri' to be initialized
+                // 'Uri' (Uniform Resource Identifier) is a characters that identify a name, source, or service in the internet
+                // 'Uri' is based on 'RFC 2396'
+                // 'tel:' is the schema 'phoneNumber' is the text
+
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+                startActivity(dialIntent)
             }
         }
     }

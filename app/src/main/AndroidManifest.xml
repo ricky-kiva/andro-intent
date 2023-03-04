@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- new 'activity tag' automatically added to AndroidManifest when created -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,7 +18,7 @@
             android:exported="false" />
         <activity
             android:name=".MoveWDataActivity"
-            android:exported="false" /> <!-- new activity automatically added to AndroidManifest when created -->
+            android:exported="false" />
         <activity
             android:name=".MoveActivity"
             android:exported="false" />
