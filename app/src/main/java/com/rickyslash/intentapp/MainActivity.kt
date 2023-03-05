@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -26,6 +27,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var tvResult: TextView
+
+    companion object {
+        // making 'TAG' for log.d
+        private const val TAG = "MainActivity"
+    }
 
     // 'Registering' 'Activity Result Launcher' for 'MoveForResult' Activity
     // 'ActivityResultContracts' as 'parameter' will 'do contract' to get 'result' from 'target activity'
@@ -69,12 +75,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_move_activity -> {
+
+                // trying log.d (debug)
+                Log.d(TAG, "THE 'SWITCH ACTIVITY' BUTTON HAS BEEN CLICKED.")
+
                 // initializing Intent object from 'context' (this@MainActivity) to 'destination activity' (MoveActivity)(explicit intent)
                 // '@' used to label the 'this' so it's not disambiguated
                 // 'context' is a 'class' to access 'resource' in 'targeted activity'
                 // '::' commonly used for passing class objects as parameter. Used to reference 'java' class object of the 'MoveActivity' class
                 val moveIntent = Intent(this@MainActivity, MoveActivity::class.java)
-
+                
                 // 'startActivity' will run the Intent
                 startActivity(moveIntent)
             }
@@ -120,3 +130,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 }
+
+/* 3 TYPES OF COMMON BUGS */
+
+// - Causing 'Force Close'
+// --- Java Null Pointer Exception: When there's a 'null value' that 'cannot be processed'
+// --- Java Out of Memory Exception: When the memory used 'exceed' from system's 'allocated' memory (ex: When loading a big image without compressing)
+// --- Java Index Out of Bound: When the index of a collection is outside the range of the size
+
+// - Causing '"App" is not responding'
+// --- If the 'process in main thread' not finished in '5 sec'
+
+// - Logic error when constructing the code
+
+/* Log variations */
+// - 'Log.d()' for debug
+// - 'Log.e()' for error
+// - 'Log.w()' for warning
+// - 'Log.i()' for information
+// - 'Log.v()' for verbose
